@@ -1,0 +1,27 @@
+.wrap{
+    width: 960px;
+    margin: 0 auto;
+}
+header{
+    background-color: aquamarine;
+}
+
+.content, aside{
+    height: 400px;
+}
+.content {
+    background-color:grey;
+    float: left;
+    width: 80%;
+}
+
+aside {
+    background-color:red;
+    float: left;
+    width: 20%;
+}
+
+footer{
+    background-color:blue;
+    clear: both;
+}
