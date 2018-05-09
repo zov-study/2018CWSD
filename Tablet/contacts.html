@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" href="favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon-16x16.png" type="image/x-icon">
+    <title>Subscribe page</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="lodash.min.js"></script>
+    <script src="low.min.js"></script>
+    <script src="LocalStorage.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="card-columns">
+            <div class="card">
+                <img class="card-img-top" src="SmartBrands_FinalLogo.jpg"  alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Leave your contact detail</h4>
+                    <!-- <p class="card-text">Text</p> 64 +20; 64 + 21; 64 + 22; 64 + 27; 64 + 28; 64 + 29 --> 
+                    <div class="form-group">
+                            <form action="#" method="post">
+
+                                <small id="helpId" class="form-text text-muted">Please provide your contact name</small>
+                                <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="John Smith" size="40" required pattern="^[a-zA-Z][a-zA-Z ]{1,40}$">
+                                <small id="helpId" class="form-text text-muted">Your contact phone number</small>
+                                <input type="tel"  class="form-control" name="phone" id="phone" aria-describedby="helpId" size="15" value="" 
+                                placeholder="020 555 1245" required pattern="^[0-9]$">
+                                <small id="emailHelpId" class="form-text text-muted">Your email</small>
+                                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId" placeholder="john@yahoo.co.nz" required>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-link active" alt="By clicking submit, you are in agreement with the Terms&Conditions">
+                                        <input type="checkbox" name="" id="chkagree" checked autocomplete="on">
+                                        I agree to Privacy Policy terms
+                                    </label>
+                                </div>
+                                <!-- primary|secondary|success|danger|warning|info|light|dark|link                 -->
+                                <button type="submit" class="btn btn-success" id="add">Subscribe</button>
+                            </form>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const adapter = new LocalStorage('db')
+        const db = low(adapter)
+
+        db.defaults({ customers: [] })
+        .write()
+
+        function add() {
+            let customer = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                data: Date.now()
+            };
+            if (customer.name==='' || customer.phone===''|| customer.email==='') {
+                return false;    
+            }
+            console.log(customer);
+        db.get('customers')
+            .push(customer)
+            .write()
+            
+            document.getElementById('name').value='';
+            document.getElementById('phone').value='';
+            document.getElementById('email').value='';
+
+        }
+
+        var email = document.querySelector('input[name="email"]');
+        email.setCustomValidity('Need your email bro!');
+
+        email.addEventListener('input', function () {
+        if (this.value.trim() === '') {
+            this.setCustomValidity('Need your email bro!');
+        }
+        else {
+            this.setCustomValidity('');
+        }
+        }, false);
+
+        email.addEventListener('invalid', function () {
+        if (this.value.trim() !== '') {
+            this.setCustomValidity("'" + this.value + "' is not a valid email bro!");
+        }
+        }, false); 
+
+        document.getElementById('add').onclick = function() {
+        add()
+        // render()
+        }
+    </script>
+    <script src="jquery-3.3.1.slim.min.js"></script>
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+</body>
+</html>
