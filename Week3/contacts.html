@@ -24,7 +24,7 @@
                     <div class="form-group">
                             <form action="#" method="post">
                                 <small id="helpId" class="form-text text-muted">Please provide your contact name</small>
-                                <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="John Smith" size="40" required pattern="^[a-zA-Z][a-zA-Z ]{1,40}$">
+                                <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="John Smith" size="40" required pattern="^[a-zA-Z][a-zA-Z ]{1,40}$" autofocus>
                                 <small id="helpId" class="form-text text-muted">Your contact phone number</small>
                                 <input type="tel" class="form-control" name="phone" id="phone" aria-describedby="helpId" size="15" value="" placeholder="020 555 1245" required>
                                 <small id="emailHelpId" class="form-text text-muted">Your email</small>
@@ -47,11 +47,30 @@
         <div class="col"></div>
         </div>
     </div>
+    <!-- Small modal -->
+    <div class="modal fade col-sm-4 ml-auto"  tabindex="-1" role="dialog" id="myModalWait" aria-labelledby="myModalWait" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                    <div class="modal-header alert-info">
+                            <h5 class="modal-title" id="myModalWaitTitle">All set...</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>        
+            <div class="modal-body">
+                <p>
+                    Your contact details were saved successfully.
+                </p>
+            </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header alert-info">
               <h5 class="modal-title" id="myModalLongTitle">Privacy Policy terms</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -122,9 +141,11 @@
     <script>
         const adapter = new LocalStorage('db')
         const db = low(adapter)
-
+  
         db.defaults({ customers: [] })
         .write()
+
+        var myTimeOut = null;
 
         function add() {
             let customer = {
@@ -142,11 +163,16 @@
             .push(customer)
             .write()
 
-            console.log(customer);
+            // console.log(customer);
             
             document.getElementById('name').value='';
             document.getElementById('phone').value='';
             document.getElementById('email').value='';
+            
+            //Show Result Popup
+            clearTimeout(myTimeOut);
+            $('#myModalWait').modal('show');
+            myTimeOut = setTimeout(function(){$('#myModalWait').modal('hide')}, 2000);
 
         }
         function showagree(){
@@ -158,11 +184,11 @@
         }
 
         var email = document.querySelector('input[name="email"]');
-        email.setCustomValidity('Need your email bro!');
+        email.setCustomValidity('Please provide your email!');
 
         email.addEventListener('input', function () {
         if (this.value.trim() === '') {
-            this.setCustomValidity('Need your email bro!');
+            this.setCustomValidity('Please provide your email!');
         }
         else {
             this.setCustomValidity('');
@@ -171,7 +197,7 @@
 
         email.addEventListener('invalid', function () {
         if (this.value.trim() !== '') {
-            this.setCustomValidity("'" + this.value + "' is not a valid email bro!");
+            this.setCustomValidity("'" + this.value + "' is not a valid email!");
         }
         }, false); 
 
