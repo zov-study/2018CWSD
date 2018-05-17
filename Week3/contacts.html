@@ -27,6 +27,8 @@
                                 <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="John Smith" size="40" required pattern="^[a-zA-Z][a-zA-Z ]{1,40}$" autofocus>
                                 <small id="helpId" class="form-text text-muted">Your contact phone number</small>
                                 <input type="tel" class="form-control" name="phone" id="phone" aria-describedby="helpId" size="15" value="" placeholder="020 555 1245" required>
+                                <small id="helpId" class="form-text text-muted">Please provide your location</small>
+                                <input type="text" class="form-control" name="district" id="district" aria-describedby="helpId" placeholder="Auckland, Mt.Roskill" size="50" required >
                                 <small id="emailHelpId" class="form-text text-muted">Your email</small>
                                 <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId" placeholder="john@yahoo.co.nz" required>
                                 <div class="btn-group" data-toggle="buttons">
@@ -151,12 +153,13 @@
             let customer = {
                 name: document.getElementById('name').value,
                 phone: document.getElementById('phone').value,
+                district: document.getElementById('district').value,
                 email: document.getElementById('email').value,
                 data: Date.now()
             };
             let chk = document.getElementById('chkagree').checked;
 
-            if (chk==false || customer.name==='' || customer.phone===''|| customer.email==='') {
+            if (chk==false || customer.name==='' || customer.phone===''|| customer.district ==='' || customer.email==='') {
                 return false;    
             }
             db.get('customers')
@@ -167,8 +170,8 @@
             
             document.getElementById('name').value='';
             document.getElementById('phone').value='';
+            document.getElementById('district').value='';
             document.getElementById('email').value='';
-            
             //Show Result Popup
             clearTimeout(myTimeOut);
             $('#myModalWait').modal('show');

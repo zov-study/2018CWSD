@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" href="file:./Subscribe page_files/favicon-16x16.png">
+    <link rel="shortcut icon" href="file:./Subscribe page_files/favicon-16x16.png" type="image/x-icon">
+    <title>Customers</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="src/lodash.min.js"></script>
+    <script src="src/low.min.js"></script>
+    <script src="src/LocalStorage.min.js"></script>
+</head>
+<body>
+    <div class="container">
+    <div class="row justify-md-content-center">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+    <table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive">
+        <thead class="thead-inverse|thead-default alert-info">
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+                <script>
+                    const adapter = new LocalStorage('db')
+                    const db = low(adapter)
+            
+                    db.defaults({ customers: [] })
+                    .write()
+
+                    var lsts = db.get('customers')
+                        .sortBy('data').reverse()
+                        .value()
+                    
+                    for (i=0;i<lsts.length; i++){
+                        let dt= new Date(lsts[i].data);
+                        document.write('<tr class="alert-'+(i%2 ? "dark" : "light")+
+                        '"><td scope="row">'+ (i+1) +'</td><td>'+dt.toLocaleString()+
+                        '</td><td>'+lsts[i].name+'</td><td>'+lsts[i].phone+'</td><td>'+
+                        lsts[i].district+'</td><td>'+lsts[i].email+'</td></tr>');
+
+                        // console.log(lsts[i].name);
+                    }    
+                </script>
+            </tbody>
+        </table>
+        </div>    
+        <div class="col-md-1"></div>
+    </div>
+    </div>
+    <script src="src/jquery-3.3.1.slim.min.js"></script>
+    <script src="src/popper.min.js"></script>
+    <script src="src/bootstrap.min.js"></script>
+</body>
+</html>
