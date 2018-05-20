@@ -1,0 +1,41 @@
+{{#if customers}}
+<div class="row">
+       <table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive col-md">
+            <thead class="thead-inverse|thead-default alert-info">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Location</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+        {{#each customers}}
+            <tr class="alert-dark">
+            <td scope="row">{{@index}}</td>
+            <td>{{name}}</td>
+            <td>{{phone}}</td>
+            <td>{{district}}</td>
+            <td>{{email}}</td>
+            <td>{{date}}</td>
+            <td><a href="/customers/edit/{{id}}" class="btn btn-dark block mb-2">Edit</a></td>
+            <td>
+                <form action="/customers/{{id}}?_method=DELETE" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger btn-block" 
+                    value="Delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{/if}}
+{{#unless customers}} 
+    <h4>No Customers were found!((</h4>
+{{/unless}}

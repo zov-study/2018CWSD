@@ -1,0 +1,41 @@
+<div class="row">
+<div class="col"></div>
+<div class="card col-md-6">
+    <img class="card-img-top logo mt-3" src="../img/logo.jpg" alt="">
+        <div class="card-body">
+        <h4 class="card-title">Please, leave your contact details</h4>
+        <form action="/customers" method="post">
+            <div class="form-group">
+                <small id="helpId" class="form-text text-muted">Please provide your contact name</small>
+                <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="John Smith" size="40" required pattern="^[a-zA-Z][a-zA-Z ]{1,40}$" autofocus>
+            </div>
+            <div class="form-group">
+                <small id="helpId" class="form-text text-muted">Your contact phone number</small>
+                <input type="tel" class="form-control" name="phone" id="phone" aria-describedby="helpId" size="15" value="" placeholder="020 555 1245" required>
+            </div>
+            <div class="form-group">
+                <small id="helpId" class="form-text text-muted">Please provide your location</small>
+                <input type="text" class="form-control" name="district" id="district" aria-describedby="helpId" placeholder="Your city, your district" size="50" required >
+            </div>
+            <div class="form-group">
+                <small id="emailHelpId" class="form-text text-muted">Your email</small>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId" placeholder="john@yahoo.co.nz" required>
+            </div>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-link active" id='chklink' 
+                data-toggle="modal" data-target="#myModal" 
+                alt="By clicking submit, you are in agreement with the Terms&amp;Conditions">
+                <input type="checkbox" name="chkagree" id="chkagree" checked="" autocomplete="on">
+                I agree to Privacy Policy terms
+                </label>
+            </div>
+            <!-- primary|secondary|success|danger|warning|info|light|dark|link                 -->
+            <button type="submit" class="btn btn-success" id="add">Subscribe</button>
+        </form>
+    </div>
+</div>
+<div class="col"></div>
+</div>
+{{> _wait}}
+{{> _agreement}}
+<script src="src/customer.js"></script>

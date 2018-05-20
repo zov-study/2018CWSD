@@ -1,0 +1,39 @@
+{{#each errors}}
+    <div class="alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+<div class="row">
+<div class="col"></div>
+<div class="card col-md-6">
+    <img class="card-img-top" src="img/logo.jpg" alt="">
+        <div class="card-body">
+        <h4 class="card-title">Please, leave your contact details</h4>
+        <form action="/customers/{{customer.id}}?_method=PUT" method="post">
+            <input type="hidden" name="_method" value="PUT">
+            <div class="form-group">
+                <small id="helpId" class="form-text text-muted">Please provide your contact name</small>
+                <input type="text" class="form-control" name="name" id="name" value="{{customer.name}}"
+                aria-describedby="helpId" placeholder="John Smith" size="40" required pattern="^[a-zA-Z][a-zA-Z ]{1,40}$" autofocus>
+            </div>
+            <div class="form-group">
+                <small id="helpId" class="form-text text-muted">Your contact phone number</small>
+                <input type="tel" class="form-control" name="phone" id="phone" value="{{customer.phone}}"
+                aria-describedby="helpId" size="15" value="" placeholder="020 555 1245" required>
+            </div>
+            <div class="form-group">
+                <small id="helpId" class="form-text text-muted">Please provide your location</small>
+                <input type="text" class="form-control" name="district" id="district" value="{{customer.district}}" 
+                aria-describedby="helpId" placeholder="Your city, your district" size="50" required >
+            </div>
+            <div class="form-group">
+                <small id="emailHelpId" class="form-text text-muted">Your email</small>
+                <input type="email" class="form-control" name="email" id="email" value="{{customer.email}}"
+                aria-describedby="emailHelpId" placeholder="john@yahoo.co.nz" required>
+            </div>
+            <button type="submit" class="btn btn-success" id="add">Save</button>
+        </form>
+    </div>
+</div>
+<div class="col"></div>
+</div>
